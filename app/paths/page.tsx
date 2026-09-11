@@ -29,7 +29,7 @@ export default async function PathsPage({ searchParams }: PathsPageProps) {
 
   return (
     <div className="space-y-10">
-      <header>
+      <header className="rounded-2xl border border-stone-200 bg-gradient-to-br from-white to-emerald-50/40 p-6 shadow-sm sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">
           Explore Paths
         </p>
@@ -45,10 +45,10 @@ export default async function PathsPage({ searchParams }: PathsPageProps) {
         <Link
           href="/paths"
           className={cn(
-            "rounded-full border px-3 py-1.5 text-sm font-medium transition-colors",
+            "rounded-full border px-4 py-1.5 text-sm font-medium transition-all",
             !activeCategory
-              ? "border-emerald-800 bg-emerald-800 text-white"
-              : "border-stone-300 bg-white text-stone-700 hover:border-emerald-700 hover:text-emerald-800",
+              ? "border-emerald-800 bg-emerald-800 text-white shadow-sm"
+              : "border-stone-200 bg-white text-stone-700 hover:-translate-y-0.5 hover:border-emerald-300 hover:text-emerald-800 hover:shadow-sm",
           )}
         >
           All
@@ -58,10 +58,10 @@ export default async function PathsPage({ searchParams }: PathsPageProps) {
             key={item}
             href={`/paths?category=${encodeURIComponent(item)}`}
             className={cn(
-              "rounded-full border px-3 py-1.5 text-sm font-medium transition-colors",
+              "rounded-full border px-4 py-1.5 text-sm font-medium transition-all",
               activeCategory === item
-                ? "border-emerald-800 bg-emerald-800 text-white"
-                : "border-stone-300 bg-white text-stone-700 hover:border-emerald-700 hover:text-emerald-800",
+                ? "border-emerald-800 bg-emerald-800 text-white shadow-sm"
+                : "border-stone-200 bg-white text-stone-700 hover:-translate-y-0.5 hover:border-emerald-300 hover:text-emerald-800 hover:shadow-sm",
             )}
           >
             {item}
@@ -70,13 +70,13 @@ export default async function PathsPage({ searchParams }: PathsPageProps) {
       </nav>
 
       {visiblePaths.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-col gap-4">
           {visiblePaths.map((path) => (
             <PathCard key={path.slug} path={path} />
           ))}
         </div>
       ) : (
-        <p className="rounded-lg border border-stone-200 bg-white p-8 text-center text-sm text-stone-600">
+        <p className="rounded-xl border border-stone-200 bg-white p-8 text-center text-sm text-stone-600">
           No paths found in this category yet.
         </p>
       )}
