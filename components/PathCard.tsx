@@ -3,6 +3,7 @@ import { ArrowRight, Clock3, Layers, Wallet } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { toToolSlug } from "@/lib/paths";
+import { getPathHref } from "@/lib/submissions";
 import type { Path } from "@/lib/types";
 
 type PathCardProps = {
@@ -37,7 +38,7 @@ export function PathCard({ path }: PathCardProps) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         <div className="min-w-0 flex-1">
           <h3 className="text-lg font-semibold text-stone-950 transition-colors group-hover:text-emerald-800">
-            <Link href={`/paths/${path.slug}`} className="after:absolute after:inset-0">
+            <Link href={getPathHref(path.slug)} className="after:absolute after:inset-0">
               {path.name}
             </Link>
           </h3>
@@ -65,19 +66,22 @@ export function PathCard({ path }: PathCardProps) {
         </dl>
       </div>
 
-      <ol className="relative z-10 flex flex-row items-stretch gap-2 overflow-x-auto border-t border-stone-100 pt-6 pb-1">
+      <ol className="relative z-10 flex flex-row items-stretch gap-1.5 border-t border-stone-100 pt-6 pb-1">
         {chain.map((tool, index) => (
-          <li key={`${tool.name}-${index}`} className="flex shrink-0 items-center gap-2">
+          <li
+            key={`${tool.name}-${index}`}
+            className="flex min-w-0 flex-1 items-center gap-1.5"
+          >
             {index > 0 && (
-              <ArrowRight className="h-5 w-5 shrink-0 text-stone-300" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4 shrink-0 text-stone-300" aria-hidden="true" />
             )}
             <Link
               href={`/tools/${toToolSlug(tool.name)}`}
               title={`${tool.name} — ${tool.bestFor}`}
-              className="flex min-w-0 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3 transition-colors hover:border-emerald-300 hover:bg-white"
+              className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-stone-200 bg-stone-50/70 px-2.5 py-2 transition-colors hover:border-emerald-300 hover:bg-white"
             >
               <span
-                className={`grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-semibold ring-2 ring-white ${
+                className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-semibold ring-2 ring-white ${
                   avatarPalette[index % avatarPalette.length]
                 }`}
                 aria-hidden="true"
@@ -85,10 +89,10 @@ export function PathCard({ path }: PathCardProps) {
                 {getInitials(tool.name)}
               </span>
               <span className="min-w-0">
-                <span className="block truncate text-base font-semibold text-stone-900">
+                <span className="block truncate text-sm font-semibold text-stone-900">
                   {tool.name}
                 </span>
-                <span className="block truncate text-sm text-stone-500">{tool.bestFor}</span>
+                <span className="block truncate text-xs text-stone-500">{tool.bestFor}</span>
               </span>
             </Link>
           </li>

@@ -1,33 +1,46 @@
 import Link from "next/link";
-import { ArrowRight, Clock3, Layers, Plus, Route, Sparkles } from "lucide-react";
+import { redirect } from "next/navigation";
+import { Clock3, Layers, Plus, Sparkles } from "lucide-react";
 
+import { MySubmissions } from "@/components/MySubmissions";
+import { UsersList } from "@/components/UsersList";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
-const savedPaths = [
-  {
-    name: "Steps For SEO Traffic",
-    tools: "ChatGPT -> Jasper -> Ghost",
-    status: "Draft",
-  },
-  {
-    name: "Steps For MVP Launch",
-    tools: "Bolt.new -> Supabase -> Stripe -> Vercel",
-    status: "Exploring",
-  },
-  {
-    name: "Steps For Cold Outreach",
-    tools: "Apollo -> Instantly -> HubSpot",
-    status: "Saved",
-  },
-];
+export default async function DashboardPage() {
+  let displayName = "there";
 
-const stats = [
-  { label: "Saved paths", value: "12" },
-  { label: "Submitted stacks", value: "3" },
-  { label: "Monthly stack cost", value: "$184" },
-];
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-export default function DashboardPage() {
+    // Require authentication: send anonymous visitors to the login page and
+    // bring them back here after a successful sign-in.
+    if (!user) {
+      redirect("/login?next=/dashboard");
+    }
+
+    displayName =
+      (user.user_metadata?.full_name as string | undefined) ??
+      (user.user_metadata?.name as string | undefined) ??
+      user.email?.split("@")[0] ??
+      "there";
+  } catch (error) {
+    // Re-throw Next.js redirect errors so navigation works as expected.
+    if (
+      error &&
+      typeof error === "object" &&
+      "digest" in error &&
+      typeof (error as { digest?: unknown }).digest === "string" &&
+      (error as { digest: string }).digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw error;
+    }
+    // Supabase is not configured yet — fall back to a generic greeting.
+  }
+
   return (
     <div className="space-y-10">
       <section className="flex flex-col gap-6 rounded-lg border border-stone-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -36,7 +49,7 @@ export default function DashboardPage() {
             Personal workspace
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">
-            Welcome back, Ethan
+            Welcome back, {displayName}
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-600">
             Manage your saved SaaS paths, review submitted stacks, and continue building workflows for your next goal.
@@ -51,48 +64,12 @@ export default function DashboardPage() {
         </Button>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        {stats.map((item) => (
-          <article key={item.label} className="rounded-lg border border-stone-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-stone-600">{item.label}</p>
-            <strong className="mt-2 block text-3xl font-semibold text-stone-950">{item.value}</strong>
-          </article>
-        ))}
-      </section>
-
       <section className="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
-        <div className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-semibold text-stone-950">Saved Paths</h2>
-              <p className="mt-1 text-sm text-stone-600">Workflows you are comparing or preparing to launch.</p>
-            </div>
-            <Route className="h-5 w-5 text-emerald-800" aria-hidden="true" />
-          </div>
-
-          <div className="mt-6 divide-y divide-stone-200">
-            {savedPaths.map((path) => (
-              <Link
-                key={path.name}
-                href="/"
-                className="flex items-center justify-between gap-4 py-4 transition-colors hover:text-emerald-800"
-              >
-                <div>
-                  <h3 className="font-medium text-stone-950">{path.name}</h3>
-                  <p className="mt-1 text-sm text-stone-600">{path.tools}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800">
-                    {path.status}
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-stone-400" aria-hidden="true" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <MySubmissions />
 
         <aside className="space-y-4">
+          <UsersList />
+
           <article className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
             <Sparkles className="h-5 w-5 text-emerald-800" aria-hidden="true" />
             <h2 className="mt-4 text-lg font-semibold text-stone-950">Next recommendation</h2>

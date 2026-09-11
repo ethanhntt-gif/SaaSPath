@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Route } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { AuthButton } from "@/components/AuthButton";
 
 const navItems = [
   { href: "/paths", label: "Explore Paths" },
@@ -35,9 +35,7 @@ export function Header() {
           ))}
         </nav>
 
-        <Button asChild variant="outline">
-          <Link href="/dashboard">Sign In</Link>
-        </Button>
+        <AuthButton />
       </div>
     </header>
   );

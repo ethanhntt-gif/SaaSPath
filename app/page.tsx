@@ -1,13 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, Route } from "lucide-react";
 
-import { PathCard } from "@/components/PathCard";
+import { CreatedProcesses } from "@/components/CreatedProcesses";
 import { Button } from "@/components/ui/button";
-import { categories, getCategoryCount, paths } from "@/lib/paths";
 
 export default function HomePage() {
-  const featuredPaths = paths.slice(0, 6);
-
   return (
     <div className="space-y-12">
       <section className="flex flex-col gap-8 border-b border-stone-200 pb-10 md:flex-row md:items-end md:justify-between">
@@ -43,55 +40,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="explore-paths" className="scroll-mt-24">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight text-stone-950 sm:text-2xl">
-              Explore Paths
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-stone-600">
-              Each path breaks a goal into clear steps and recommends SaaS tools for every stage.
-            </p>
-          </div>
-          <Link
-            href="/paths"
-            className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-emerald-800 transition-colors hover:text-emerald-900"
-          >
-            View all {paths.length} paths
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div className="mt-6 flex flex-col gap-4">
-          {featuredPaths.map((path) => (
-            <PathCard key={path.slug} path={path} />
-          ))}
-        </div>
-      </section>
-
-      <section id="categories" className="scroll-mt-24">
-        <h2 className="text-xl font-semibold tracking-tight text-stone-950 sm:text-2xl">
-          Categories
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-stone-600">
-          Browse paths by the outcome you want to achieve.
-        </p>
-
-        <div className="mt-5 flex flex-wrap gap-2.5">
-          {categories.map((category) => (
-            <Link
-              key={category}
-              href={`/paths?category=${encodeURIComponent(category)}`}
-              className="group inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:text-emerald-800 hover:shadow-md"
-            >
-              {category}
-              <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500 transition-colors group-hover:bg-emerald-50 group-hover:text-emerald-700">
-                {getCategoryCount(category)}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <CreatedProcesses />
 
       <section className="relative overflow-hidden rounded-2xl border border-emerald-900/10 bg-emerald-900 p-6 text-white shadow-sm sm:p-8">
         <div

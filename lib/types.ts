@@ -1,11 +1,10 @@
 export type Category =
-  | "Traffic"
-  | "Content"
-  | "Revenue"
-  | "Automation"
   | "Launch"
+  | "Content"
+  | "Traffic"
   | "Sales"
-  | "Support";
+  | "Support"
+  | "Revenue";
 
 export type Difficulty = "Beginner" | "Intermediate" | "Advanced";
 
