@@ -157,29 +157,40 @@ export function SubmitStackForm() {
       </ol>
 
       {currentStep === 1 && (
-        <section className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-stone-950">
-            Choose a goal category
+        <section className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-emerald-800">
+            Step 1 of 3
+          </span>
+          <h2 className="mt-4 text-2xl font-bold tracking-tight text-stone-950 sm:text-3xl">
+            What should this stack achieve?
           </h2>
-          <p className="mt-1 text-sm text-stone-600">
-            Pick the outcome your stack is built around.
+          <p className="mt-3 max-w-2xl text-base leading-7 text-stone-600">
+            Start by choosing the goal you want to reach. We'll then show the
+            workflows built for that goal, and you'll pick the tools for each step.
           </p>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="mt-8 text-sm font-semibold text-stone-800">
+            Select one goal to continue
+          </p>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((item) => (
               <button
                 key={item}
                 type="button"
                 onClick={() => handleSelectCategory(item)}
                 className={cn(
-                  "flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-all hover:-translate-y-0.5 hover:shadow-md",
+                  "group flex items-center justify-between rounded-lg border px-4 py-4 text-left text-base font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md",
                   category === item
                     ? "border-emerald-800 bg-emerald-50 text-emerald-900"
-                    : "border-stone-200 bg-white text-stone-700 hover:border-emerald-300",
+                    : "border-stone-200 bg-white text-stone-800 hover:border-emerald-400 hover:text-emerald-800",
                 )}
               >
                 {item}
-                <ArrowRight className="h-4 w-4 text-stone-400" aria-hidden="true" />
+                <ArrowRight
+                  className="h-4 w-4 text-stone-400 transition-transform group-hover:translate-x-0.5 group-hover:text-emerald-700"
+                  aria-hidden="true"
+                />
               </button>
             ))}
           </div>
