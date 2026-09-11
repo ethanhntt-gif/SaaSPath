@@ -29,6 +29,7 @@ export function PathCard({ path }: PathCardProps) {
 
   // One representative tool per step, so the row shows the actual chain.
   const chain = path.steps.map((step) => step.tools[0]).filter(Boolean);
+  const stepCount = chain.length;
 
   return (
     <Link
@@ -47,7 +48,9 @@ export function PathCard({ path }: PathCardProps) {
           <div className="flex items-center gap-1.5">
             <Layers className="h-3.5 w-3.5 text-emerald-700" aria-hidden="true" />
             <dt className="sr-only">Steps</dt>
-            <dd>{path.steps.length} steps</dd>
+            <dd>
+              {stepCount} {stepCount === 1 ? "step" : "steps"}
+            </dd>
           </div>
           <div className="flex items-center gap-1.5">
             <Wallet className="h-3.5 w-3.5 text-emerald-700" aria-hidden="true" />
