@@ -33,21 +33,14 @@ export function PathCard({ path }: PathCardProps) {
   return (
     <Link
       href={`/paths/${path.slug}`}
-      className="group flex flex-col gap-5 rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-900/5 sm:p-6"
+      className="group flex flex-col gap-6 rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-900/5 sm:p-6"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-        <div className="flex min-w-0 flex-1 flex-col gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge>{path.category}</Badge>
-            <Badge variant="outline">{path.difficulty}</Badge>
-          </div>
-
-          <div className="min-w-0">
-            <h3 className="text-lg font-semibold text-stone-950 transition-colors group-hover:text-emerald-800">
-              {path.name}
-            </h3>
-            <p className="mt-1 text-sm leading-6 text-stone-600">{path.tagline}</p>
-          </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-lg font-semibold text-stone-950 transition-colors group-hover:text-emerald-800">
+            {path.name}
+          </h3>
+          <p className="mt-1 text-sm leading-6 text-stone-600">{path.tagline}</p>
         </div>
 
         <dl className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-2 text-xs text-stone-600 sm:flex-col sm:items-end sm:gap-y-2.5">
@@ -69,35 +62,37 @@ export function PathCard({ path }: PathCardProps) {
         </dl>
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-stone-100 pt-5 lg:flex-row lg:items-center lg:justify-between">
-        <ol className="flex flex-1 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-2">
-          {chain.map((tool, index) => (
-            <li key={`${tool.name}-${index}`} className="flex items-center gap-2">
-              {index > 0 && (
-                <ArrowRight
-                  className="hidden h-4 w-4 shrink-0 text-stone-300 sm:block"
-                  aria-hidden="true"
-                />
-              )}
-              <div className="flex min-w-0 flex-1 items-center gap-3 rounded-lg border border-stone-200 bg-stone-50/70 px-3 py-2.5 sm:flex-none">
-                <span
-                  className={`grid h-11 w-11 shrink-0 place-items-center rounded-full text-sm font-semibold ring-2 ring-white ${
-                    avatarPalette[index % avatarPalette.length]
-                  }`}
-                  aria-hidden="true"
-                >
-                  {getInitials(tool.name)}
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-stone-900">{tool.name}</p>
-                  <p className="truncate text-xs text-stone-500">{tool.bestFor}</p>
-                </div>
+      <ol className="flex flex-col items-center justify-center gap-3 border-t border-stone-100 pt-6 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-3">
+        {chain.map((tool, index) => (
+          <li key={`${tool.name}-${index}`} className="flex items-center gap-3">
+            {index > 0 && (
+              <ArrowRight
+                className="hidden h-5 w-5 shrink-0 text-stone-300 sm:block"
+                aria-hidden="true"
+              />
+            )}
+            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3 sm:flex-none">
+              <span
+                className={`grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-semibold ring-2 ring-white ${
+                  avatarPalette[index % avatarPalette.length]
+                }`}
+                aria-hidden="true"
+              >
+                {getInitials(tool.name)}
+              </span>
+              <div className="min-w-0">
+                <p className="truncate text-base font-semibold text-stone-900">{tool.name}</p>
+                <p className="truncate text-sm text-stone-500">{tool.bestFor}</p>
               </div>
-            </li>
-          ))}
-        </ol>
+            </div>
+          </li>
+        ))}
+      </ol>
 
-        <span className="hidden h-9 w-9 shrink-0 place-items-center rounded-full bg-stone-100 text-stone-500 transition-colors group-hover:bg-emerald-800 group-hover:text-white lg:grid">
+      <div className="flex flex-wrap items-center gap-2 border-t border-stone-100 pt-4">
+        <Badge>{path.category}</Badge>
+        <Badge variant="outline">{path.difficulty}</Badge>
+        <span className="ml-auto hidden h-9 w-9 shrink-0 place-items-center rounded-full bg-stone-100 text-stone-500 transition-colors group-hover:bg-emerald-800 group-hover:text-white sm:grid">
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </span>
       </div>
