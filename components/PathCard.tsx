@@ -62,16 +62,13 @@ export function PathCard({ path }: PathCardProps) {
         </dl>
       </div>
 
-      <ol className="flex flex-col items-center justify-center gap-3 border-t border-stone-100 pt-6 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-3">
+      <ol className="flex flex-row items-stretch gap-2 overflow-x-auto border-t border-stone-100 pt-6 pb-1">
         {chain.map((tool, index) => (
-          <li key={`${tool.name}-${index}`} className="flex items-center gap-3">
+          <li key={`${tool.name}-${index}`} className="flex shrink-0 items-center gap-2">
             {index > 0 && (
-              <ArrowRight
-                className="hidden h-5 w-5 shrink-0 text-stone-300 sm:block"
-                aria-hidden="true"
-              />
+              <ArrowRight className="h-5 w-5 shrink-0 text-stone-300" aria-hidden="true" />
             )}
-            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3 sm:flex-none">
+            <div className="flex min-w-0 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3">
               <span
                 className={`grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-semibold ring-2 ring-white ${
                   avatarPalette[index % avatarPalette.length]
