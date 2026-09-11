@@ -1,4 +1,4 @@
-import type { Category, Path } from "./types";
+import type { Category, Path, Step, Tool } from "./types";
 
 export const paths: Path[] = [
   {
@@ -723,4 +723,37 @@ export function getPathsByCategory(category: Category): Path[] {
 
 export function getCategoryCount(category: Category): number {
   return getPathsByCategory(category).length;
+}
+
+export function toToolSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export interface ToolWithContext {
+  tool: Tool;
+  path: Path;
+  step: Step;
+}
+
+export function getAllTools(): ToolWithContext[] {
+  return paths.flatMap((path) =>
+    path.steps.flatMap((step) => step.tools.map((tool) => ({ tool, path, step }))),
+  );
+}
+
+export function getToolBySlug(slug: string): ToolWithContext | undefined {
+  return getAllTools().find((entry) => toToolSlug(entry.tool.name) === slug);
+}
+
+export function getToolSlugs(): string[] {
+  return Array.from(new Set(getAllTools().map((entry) => toToolSlug(entry.tool.name))));
+}
+
+export function getPathsForTool(toolName: string): Path[] {
+  return paths.filter((path) =>
+    path.steps.some((step) => step.tools.some((tool) => tool.name === toolName)),
+  );
 }

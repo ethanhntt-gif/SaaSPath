@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock3, ExternalLink, Layers, Wallet } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { getPathBySlug, paths } from "@/lib/paths";
+import { getPathBySlug, paths, toToolSlug } from "@/lib/paths";
 
 type PathDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -111,7 +111,14 @@ export default async function PathDetailPage({ params }: PathDetailPageProps) {
                           className="group flex flex-col rounded-lg border border-stone-200 bg-stone-50/70 p-4 transition-colors hover:border-emerald-300 hover:bg-white"
                         >
                           <div className="flex items-start justify-between gap-3">
-                            <h4 className="font-medium text-stone-950">{tool.name}</h4>
+                            <h4 className="font-medium text-stone-950">
+                              <Link
+                                href={`/tools/${toToolSlug(tool.name)}`}
+                                className="transition-colors hover:text-emerald-800"
+                              >
+                                {tool.name}
+                              </Link>
+                            </h4>
                             <Badge variant="muted">{tool.price}</Badge>
                           </div>
                           <p className="mt-2 flex-1 text-sm leading-6 text-stone-600">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Clock3, Layers, Wallet } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { toToolSlug } from "@/lib/paths";
 import type { Path } from "@/lib/types";
 
 type PathCardProps = {
@@ -32,14 +33,13 @@ export function PathCard({ path }: PathCardProps) {
   const stepCount = chain.length;
 
   return (
-    <Link
-      href={`/paths/${path.slug}`}
-      className="group flex flex-col gap-6 rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-900/5 sm:p-6"
-    >
+    <div className="group relative flex flex-col gap-6 rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-900/5 sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         <div className="min-w-0 flex-1">
           <h3 className="text-lg font-semibold text-stone-950 transition-colors group-hover:text-emerald-800">
-            {path.name}
+            <Link href={`/paths/${path.slug}`} className="after:absolute after:inset-0">
+              {path.name}
+            </Link>
           </h3>
           <p className="mt-1 text-sm leading-6 text-stone-600">{path.tagline}</p>
         </div>
@@ -65,13 +65,17 @@ export function PathCard({ path }: PathCardProps) {
         </dl>
       </div>
 
-      <ol className="flex flex-row items-stretch gap-2 overflow-x-auto border-t border-stone-100 pt-6 pb-1">
+      <ol className="relative z-10 flex flex-row items-stretch gap-2 overflow-x-auto border-t border-stone-100 pt-6 pb-1">
         {chain.map((tool, index) => (
           <li key={`${tool.name}-${index}`} className="flex shrink-0 items-center gap-2">
             {index > 0 && (
               <ArrowRight className="h-5 w-5 shrink-0 text-stone-300" aria-hidden="true" />
             )}
-            <div className="flex min-w-0 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3">
+            <Link
+              href={`/tools/${toToolSlug(tool.name)}`}
+              title={`${tool.name} — ${tool.bestFor}`}
+              className="flex min-w-0 items-center gap-3 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3 transition-colors hover:border-emerald-300 hover:bg-white"
+            >
               <span
                 className={`grid h-14 w-14 shrink-0 place-items-center rounded-full text-base font-semibold ring-2 ring-white ${
                   avatarPalette[index % avatarPalette.length]
@@ -80,11 +84,13 @@ export function PathCard({ path }: PathCardProps) {
               >
                 {getInitials(tool.name)}
               </span>
-              <div className="min-w-0">
-                <p className="truncate text-base font-semibold text-stone-900">{tool.name}</p>
-                <p className="truncate text-sm text-stone-500">{tool.bestFor}</p>
-              </div>
-            </div>
+              <span className="min-w-0">
+                <span className="block truncate text-base font-semibold text-stone-900">
+                  {tool.name}
+                </span>
+                <span className="block truncate text-sm text-stone-500">{tool.bestFor}</span>
+              </span>
+            </Link>
           </li>
         ))}
       </ol>
@@ -96,6 +102,6 @@ export function PathCard({ path }: PathCardProps) {
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </span>
       </div>
-    </Link>
+    </div>
   );
 }
