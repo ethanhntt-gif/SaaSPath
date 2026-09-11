@@ -10,16 +10,23 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12">
-      <section className="flex flex-col gap-6 border-b border-stone-200 pb-8 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">
+      <section className="flex flex-col gap-8 border-b border-stone-200 pb-10 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-3xl">
+          <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">
+            <Route className="h-3.5 w-3.5" aria-hidden="true" />
             Workflow-driven SaaS directory
           </p>
-          <h1 className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-stone-950 sm:text-3xl">
-            Find the right SaaS path for your next workflow.
+          <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-stone-950 sm:text-5xl lg:text-6xl">
+            Find the right SaaS path for your{" "}
+            <span className="text-emerald-800">next workflow</span>.
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600">
-            Ready-made stacks for traffic, content, sales, automation, and launch.
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-stone-600 sm:text-xl">
+            Ready-made stacks for{" "}
+            <span className="font-semibold text-stone-900">traffic</span>,{" "}
+            <span className="font-semibold text-stone-900">content</span>,{" "}
+            <span className="font-semibold text-stone-900">sales</span>,{" "}
+            <span className="font-semibold text-stone-900">automation</span>, and{" "}
+            <span className="font-semibold text-stone-900">launch</span>.
           </p>
         </div>
 
