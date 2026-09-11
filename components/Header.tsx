@@ -4,7 +4,7 @@ import { Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { href: "/#explore-paths", label: "Explore Paths" },
+  { href: "/paths", label: "Explore Paths" },
   { href: "/#categories", label: "Categories" },
   { href: "/submit-stack", label: "Submit Stack" },
 ];
@@ -36,7 +36,7 @@ export function Header() {
         </nav>
 
         <Button asChild variant="outline">
-          <Link href="/sign-in">Sign In</Link>
+          <Link href="/dashboard">Sign In</Link>
         </Button>
       </div>
     </header>
