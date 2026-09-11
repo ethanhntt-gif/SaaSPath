@@ -757,3 +757,47 @@ export function getPathsForTool(toolName: string): Path[] {
     path.steps.some((step) => step.tools.some((tool) => tool.name === toolName)),
   );
 }
+
+/**
+ * Catalog of tools grouped by the kind of step they belong to.
+ * Used by the Submit Stack flow so each step offers its own relevant tools
+ * instead of one shared list.
+ */
+export const toolCatalog: Record<string, string[]> = {
+  "Generate content ideas": ["ChatGPT", "Ahrefs", "Perplexity", "TikTok Creative Center"],
+  "Write long-form articles": ["Jasper", "Surfer SEO", "Claude", "Copy.ai"],
+  "Publish to a blog": ["Ghost", "WordPress", "Framer", "Webflow"],
+  "Track performance": ["Google Analytics", "Google Search Console", "PostHog", "Metricool"],
+  "Research and brief": ["Perplexity", "ChatGPT", "Ahrefs"],
+  "Generate drafts": ["Claude", "Copy.ai", "Jasper", "ChatGPT"],
+  "Repurpose content": ["Opus Clip", "Repurpose.io", "Descript", "CapCut"],
+  "Schedule and publish": ["Buffer", "Metricool", "Beehiiv"],
+  "Build the app": ["Bolt.new", "Cursor", "Framer", "Webflow"],
+  "Add backend and auth": ["Supabase", "Clerk", "Notion"],
+  "Add payments": ["Stripe", "Lemon Squeezy", "Gumroad"],
+  "Deploy and monitor": ["Vercel", "Sentry", "PostHog"],
+  "Capture subscribers": ["ConvertKit", "Beehiiv", "HubSpot"],
+  "Write and send": ["Beehiiv", "ConvertKit", "Notion"],
+  "Grow the list": ["SparkLoop", "Buffer", "Metricool"],
+  Monetize: ["Stripe", "Gumroad", "Lemon Squeezy"],
+  "Build a prospect list": ["Apollo", "HubSpot"],
+  "Send sequences": ["Instantly", "Smartlead", "Apollo"],
+  "Track and CRM": ["HubSpot", "Notion"],
+  "Book meetings": ["Calendly", "HubSpot"],
+  "Find hooks and trends": ["TikTok Creative Center", "Metricool", "Perplexity"],
+  "Script and film": ["CapCut", "Descript", "ChatGPT"],
+  "Edit and caption": ["Descript", "CapCut", "Opus Clip"],
+  "Schedule and analyze": ["Metricool", "Buffer", "PostHog"],
+  "Centralize conversations": ["Intercom", "Tidio", "Zendesk"],
+  "Build a knowledge base": ["Notion", "Intercom"],
+  "Automate responses": ["Zendesk", "Tidio", "Intercom"],
+  "Measure satisfaction": ["Delighted", "PostHog", "Zendesk"],
+  "Write the copy": ["ChatGPT", "Claude", "Copy.ai"],
+  "Build the page": ["Framer", "Webflow", "Bolt.new"],
+  "Connect payments": ["Stripe", "Gumroad", "Lemon Squeezy"],
+  "Optimize conversion": ["PostHog", "Google Analytics", "Metricool"],
+};
+
+export function getToolsForStep(stepTitle: string): string[] {
+  return toolCatalog[stepTitle] ?? [];
+}

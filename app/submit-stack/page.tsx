@@ -1,12 +1,6 @@
-import { CheckCircle2, LinkIcon, Send, Workflow } from "lucide-react";
+import { CheckCircle2, Workflow } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-
-const fieldClass =
-  "mt-2 h-11 w-full rounded-md border border-stone-300 bg-white px-3 text-sm outline-none transition-colors placeholder:text-stone-400 focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15";
-
-const textareaClass =
-  "mt-2 min-h-28 w-full rounded-md border border-stone-300 bg-white px-3 py-3 text-sm outline-none transition-colors placeholder:text-stone-400 focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15";
+import { SubmitStackForm } from "@/components/SubmitStackForm";
 
 export default function SubmitStackPage() {
   return (
@@ -35,84 +29,7 @@ export default function SubmitStackPage() {
         </div>
       </aside>
 
-      <section className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-        <form className="space-y-6">
-          <div className="grid gap-5 md:grid-cols-2">
-            <label className="block text-sm font-medium text-stone-800">
-              Stack name
-              <input className={fieldClass} placeholder="Steps For SEO Traffic" />
-            </label>
-
-            <label className="block text-sm font-medium text-stone-800">
-              Goal category
-              <select className={fieldClass} defaultValue="">
-                <option value="" disabled>
-                  Select category
-                </option>
-                <option>Traffic</option>
-                <option>Revenue</option>
-                <option>Content</option>
-                <option>Automation</option>
-                <option>Launch</option>
-              </select>
-            </label>
-          </div>
-
-          <label className="block text-sm font-medium text-stone-800">
-            Workflow summary
-            <textarea
-              className={textareaClass}
-              placeholder="Describe what this stack helps users accomplish and who it is best for."
-            />
-          </label>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            <label className="block text-sm font-medium text-stone-800">
-              Step 1
-              <input className={fieldClass} placeholder="ChatGPT" />
-            </label>
-            <label className="block text-sm font-medium text-stone-800">
-              Step 2
-              <input className={fieldClass} placeholder="Jasper" />
-            </label>
-            <label className="block text-sm font-medium text-stone-800">
-              Step 3
-              <input className={fieldClass} placeholder="Ghost" />
-            </label>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-2">
-            <label className="block text-sm font-medium text-stone-800">
-              Monthly cost estimate
-              <input className={fieldClass} placeholder="$29 - $149/mo" />
-            </label>
-
-            <label className="block text-sm font-medium text-stone-800">
-              Reference link
-              <div className="relative">
-                <LinkIcon className="pointer-events-none absolute left-3 top-5 h-4 w-4 text-stone-400" aria-hidden="true" />
-                <input className={`${fieldClass} pl-9`} placeholder="https://example.com" />
-              </div>
-            </label>
-          </div>
-
-          <label className="block text-sm font-medium text-stone-800">
-            Notes for review
-            <textarea
-              className={textareaClass}
-              placeholder="Add affiliate details, proof, screenshots, or why this workflow should be featured."
-            />
-          </label>
-
-          <div className="flex flex-col gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-stone-500">Submissions are reviewed before publishing.</p>
-            <Button type="button">
-              <Send className="h-4 w-4" aria-hidden="true" />
-              Send Stack
-            </Button>
-          </div>
-        </form>
-      </section>
+      <SubmitStackForm />
     </div>
   );
 }
