@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Clock3, Layers, Plus, Sparkles } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import { MySubmissions } from "@/components/MySubmissions";
-import { UsersList } from "@/components/UsersList";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 
@@ -64,36 +63,8 @@ export default async function DashboardPage() {
         </Button>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
+      <section>
         <MySubmissions />
-
-        <aside className="space-y-4">
-          <UsersList />
-
-          <article className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-            <Sparkles className="h-5 w-5 text-emerald-800" aria-hidden="true" />
-            <h2 className="mt-4 text-lg font-semibold text-stone-950">Next recommendation</h2>
-            <p className="mt-2 text-sm leading-6 text-stone-600">
-              Complete your SEO Traffic path by choosing a publishing tool and analytics step.
-            </p>
-          </article>
-
-          <article className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-            <Clock3 className="h-5 w-5 text-emerald-800" aria-hidden="true" />
-            <h2 className="mt-4 text-lg font-semibold text-stone-950">Recent activity</h2>
-            <p className="mt-2 text-sm leading-6 text-stone-600">
-              Your last stack submission is pending review. Most reviews are completed within 48 hours.
-            </p>
-          </article>
-
-          <article className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-            <Layers className="h-5 w-5 text-emerald-800" aria-hidden="true" />
-            <h2 className="mt-4 text-lg font-semibold text-stone-950">Submitted stacks</h2>
-            <p className="mt-2 text-sm leading-6 text-stone-600">
-              Track submitted SaaS chains and update descriptions before publishing.
-            </p>
-          </article>
-        </aside>
       </section>
     </div>
   );
